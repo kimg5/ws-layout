@@ -1,0 +1,28 @@
+<wz-layout [container]="parentContainer" styleClass="parentContainer">
+  <wz-box [grid]="parentHeader" styleClass="parentCell">
+    <div>header</div>
+  </wz-box>
+  <wz-box [grid]="parentMain1" styleClass="parentCell">
+    <wz-layout [container]="child1Layout.container" styleClass="child1Container">
+      <wz-box [grid]="child1Layout.getBox('child1')" styleClass="child1Cell">
+        <div>child1</div>
+      </wz-box>
+    </wz-layout>
+  </wz-box>
+  <wz-box [grid]="parentMain2" styleClass="parentCell">
+    <wz-layout [container]="child2Layout.container" styleClass="child2Container">
+      <wz-box [grid]="child2Layout.getBox('child2')" styleClass="child2Cell">
+        <div>child2</div>
+      </wz-box>
+      <wz-box [grid]="child2Layout.getBox('child3')" styleClass="child3Cell">
+        <div>child3</div>
+      </wz-box>
+      <wz-box [grid]="child2Layout.getBox('child4')" styleClass="child4Cell">
+        <div>child4</div>
+      </wz-box>
+    </wz-layout>
+  </wz-box>
+  <wz-box [grid]="parentFooter" styleClass="parentCell">
+    <div>footer</div>
+  </wz-box>
+</wz-layout>

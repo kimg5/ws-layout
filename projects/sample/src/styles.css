@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files */
+.parentCell {
+    border-top: 1px solid red;
+}
+
+.parentContainer {
+    background-color: lightblue;
+    height: 800px;
+}
+
+.child1Container {
+    border-top: 1px solid black;
+}
+
+.child1Cell {
+    background-color: white;
+}
+
+.child2Container {
+    border: 1px solid black;
+}
+
+.child2Cell {
+    background-color: greenyellow;   
+}
+
+.child3Cell {
+    background-color: rebeccapurple;   
+}
+
+.child4Cell {
+    background-color: red;   
+}

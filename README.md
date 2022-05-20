@@ -1,27 +1,92 @@
 # WsLayout
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.2.
+The layout library was built with [Angular](https://angular.io) version 13.1.2. 
+And it uses css grid layout to layout the page or component. 
 
-## Development server
+## Import
+local mode : with the library code in the same project
+import { LayoutModule } from 'projects/layout/src/public-api';
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+If using CssGridLayout class to build the css grid layout in the component class.
+ 
+import { CssGridLayout } from 'projects/layout/src/lib/css-grid-layout';
 
-## Code scaffolding
+## Getting started
+    The layout is only one root container, there are more than one boxes in each container,
+    in one box , there can be another container and so on.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+    Please read the [CSS GRID](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout)    
 
-## Build
+    <wz-layout [container]="*container's css grid styles*" [styleClass]="*global css class*">  
+      <wz-box [grid]="box's css grid styles" [styleClass]="global css class">
+        *content*
+      </wz-box>
+    </wz-layout>
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+    wz-layout : it is the tag for the container
+                1. container : Record<string,string> 
+                            it is the css container grid layout styles, can be setup directly with the css style.
+                            or setup with CssGridLayout class  
+                for example,
+                container = {
+                     "display": "grid",
+                     "grid-template-rows": "1fr 8fr 1fr",
+                     "grid-template-columns": "1fr 1fr 1fr"
+                }
+                
+                2. styleClass: it is a global css class , normally it is in the styles.css file.
+                any css features can be added with the style class  
+       
+    wz-box: this directive is used to create a box in the container. 
+            1. grid : Record<string,string> 
+                      it is the css container grid layout styles, can be setup directly with the css style.
+                      or setup with CssGridLayout class  
+               for example:
+               grid = { "grid-row": "1/1", "grid-column": "1/span 2" };
 
-## Running unit tests
+            2. styleClass: it is a global css class , normally it is in the styles.css file.
+                any css features can be added with the style class
+         
+ ## Notice:  
+    1. The heigth should be setting up for the root container
+    2. When directly setting up the css layout attributes, if the box's size crossed the rows or columns,
+       'span' has to be used  
+    3. When directly setting up the css layout attributes,in order to fully filled the box space,
+       place-self should be setup to stretch or not setup , and then it is better to setup the heigth to 100% in the box style class
+           
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+ 2. helper class for creating the css grid layout attributes 
+    CssGridLayout
+    1. attributes:
+       container!: Record<string, string>;
+       boxes! : Map<string,Record<string,string>>;
+    2. API
+       - setContainer(type?: string,
+                    rows?: string,
+                    columns?: string,
+                    gap?: string,
+                    autoFlow?: string,
+                    placeItems?: string,
+                    placeContent?: string)
+       - setArea(rows: string,columns: string)
+         set the container's size  
+       - setGap(rowGap : string, columnGap : string)
+         set the container's gap, include the gap between rows and gap between columns
+       - placeItems(placeItems : string) 
+       - placeContainer(horizon : string, vertical : string)
+       - getBoxKeys()    
+         get all the ids of the boxes
+       - getBox(key : string)
+       - addBox(id: string,style: Record<string,string>)
+       - add(id: string, itemArea: string, align: string) 
+       - setItemArea(boxId: string,startRow: number, endRow: number, startColumn: number,endColumn: number)
+         set the box's place and size
+       - setItemRows(boxId: string,startRow: number, endRow: number)
+         set the box's row place  
+       - setItemColumns(boxId: string, startColumn: number, endColumn: number)
+         set the box's columns place
+       - setItemAlign(boxId: string,horizon: string, vertical: string)  
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Sample
+   In the sample application, there are two methods to demo how to setup the container and box.
+   
